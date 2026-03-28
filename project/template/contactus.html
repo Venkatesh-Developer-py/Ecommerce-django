@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Help & Support</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+    margin:0;
+    font-family: Arial, Helvetica, sans-serif;
+    background:#f1f3f6;
+}
+
+/* HEADER */
+.header{
+    background:#232f3e;
+    color:#fff;
+    padding:18px 30px;
+    font-size:20px;
+    font-weight:bold;
+}
+
+/* FULL PAGE CONTAINER */
+.container{
+    padding:30px;
+}
+
+/* CONTENT FULL WIDTH */
+.content{
+    max-width:1200px;
+    margin:auto;
+    background:#fff;
+    padding:40px;
+    border-radius:8px;
+    box-shadow:0 2px 8px rgba(0,0,0,0.12);
+}
+
+.content h1{
+    margin-top:0;
+    font-size:26px;
+}
+
+/* CHAT & CALL CARDS */
+.cards{
+    display:flex;
+    gap:30px;
+    margin-top:35px;
+}
+
+.card{
+    flex:1;
+    border:1px solid #ddd;
+    border-radius:12px;
+    padding:35px;
+    text-align:center;
+}
+
+.card h3{
+    margin-top:18px;
+}
+
+.card p{
+    color:#555;
+    font-size:14px;
+}
+
+.card a{
+    text-decoration:none;
+}
+
+.card button{
+    margin-top:20px;
+    padding:14px 30px;
+    border:none;
+    background:#ffd814;
+    border-radius:30px;
+    font-weight:bold;
+    cursor:pointer;
+    font-size:14px;
+}
+
+.card button:hover{
+    background:#f7ca00;
+}
+
+/* AMAZON STYLE EXTRA HELP */
+.help-section{
+    margin-top:55px;
+}
+
+.help-section h2{
+    font-size:22px;
+    margin-bottom:22px;
+}
+
+.help-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:20px;
+}
+
+.help-box{
+    background:#f7fafa;
+    padding:20px;
+    border-radius:10px;
+    border:1px solid #ddd;
+    text-decoration:none;
+    color:#000;
+    font-size:15px;
+    font-weight:500;
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.help-box:hover{
+    background:#fff;
+    box-shadow:0 3px 8px rgba(0,0,0,0.15);
+}
+
+/* MOBILE */
+@media(max-width:900px){
+    .cards{
+        flex-direction:column;
+    }
+    .content{
+        padding:25px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<div class="header">Help & Support</div>
+
+<div class="container">
+
+    <div class="content">
+
+        <h1>Want to chat now or get a call from us?</h1>
+
+        <!-- CHAT & CALL -->
+        <div class="cards">
+
+            <!-- CHAT -->
+            <div class="card">
+                💬
+                <h3>Chat right now</h3>
+                <p>Our messaging assistant can quickly solve many issues.</p>
+                <a href="mailto:support@yourshop.com?subject=Help%20Request">
+                    <button>Start chatting</button>
+                </a>
+            </div>
+
+            <!-- CALL -->
+            <div class="card">
+                📞
+                <h3>Have us call you</h3>
+                <p>We’ll call you right away after collecting details.</p>
+                <a href="tel:+919876543210">
+                    <button>Call me</button>
+                </a>
+            </div>
+
+        </div>
+
+        <!-- EXTRA HELP -->
+        <div class="help-section">
+            <h2>More ways we can help</h2>
+
+            <div class="help-grid">
+                <a href="mailto:support@yourshop.com?subject=Track%20Order" class="help-box">
+                    📦 Track your order
+                </a>
+
+                <a href="mailto:support@yourshop.com?subject=Returns%20and%20Refunds" class="help-box">
+                    🔁 Returns & Refunds
+                </a>
+
+                <a href="mailto:support@yourshop.com?subject=Shipping%20Help" class="help-box">
+                    🚚 Shipping & Delivery
+                </a>
+
+                <a href="mailto:support@yourshop.com?subject=Payment%20Issue" class="help-box">
+                    💳 Payment & Billing
+                </a>
+
+                <a href="mailto:support@yourshop.com?subject=Account%20Issue" class="help-box">
+                    🔐 Account & Login Issues
+                </a>
+
+                <a href="tel:+919876543210" class="help-box">
+                    📞 Contact Customer Care
+                </a>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>

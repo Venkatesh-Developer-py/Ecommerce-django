@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Payment Options</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+<style>
+body{
+    margin:0;
+    font-family:'Segoe UI',sans-serif;
+    background:#f1f5f9;
+}
+
+/* CONTAINER */
+.container{
+    max-width:900px;
+    margin:50px auto;
+    padding:10px;
+}
+
+h2{
+    font-weight:700;
+    color:#0f172a;
+    margin-bottom:8px;
+}
+
+.subtitle{
+    color:#475569;
+    margin-bottom:30px;
+}
+
+/* CARD */
+.card{
+    background:#ffffff;
+    border-radius:22px;
+    padding:28px;
+    margin-bottom:22px;
+    box-shadow:0 15px 35px rgba(0,0,0,0.1);
+    transition:0.3s;
+}
+
+.card:hover{
+    transform:translateY(-4px);
+}
+
+/* HEADER */
+.card-header{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    margin-bottom:12px;
+}
+
+.card-header i{
+    font-size:28px;
+    color:#2563eb;
+}
+
+.card-header h3{
+    margin:0;
+    font-size:18px;
+    font-weight:700;
+}
+
+/* TEXT */
+.card p{
+    font-size:14px;
+    color:#475569;
+    margin-bottom:18px;
+}
+
+/* BUTTON */
+.btn{
+    display:inline-block;
+    padding:12px 26px;
+    border-radius:30px;
+    font-size:14px;
+    font-weight:600;
+    text-decoration:none;
+    cursor:pointer;
+}
+
+/* BUTTON TYPES */
+.btn-primary{
+    background:#2563eb;
+    color:#ffffff;
+}
+
+.btn-dark{
+    background:#020617;
+    color:#ffffff;
+}
+
+.btn-success{
+    background:#16a34a;
+    color:#ffffff;
+}
+
+/* SECURE */
+.secure{
+    text-align:center;
+    margin-top:30px;
+    font-size:13px;
+    color:#475569;
+}
+
+.secure i{
+    color:#16a34a;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h2>Select Payment Method</h2>
+    <p class="subtitle">All transactions are secure and encrypted</p>
+
+    <!-- UPI -->
+    <div class="card">
+        <div class="card-header">
+            <i class="bi bi-phone-fill"></i>
+            <h3>UPI (Recommended)</h3>
+        </div>
+        <p>Pay instantly using Google Pay, PhonePe, Paytm or any UPI app.</p>
+        <a href="#" class="btn btn-primary">Pay via UPI</a>
+    </div>
+
+    <!-- CARD -->
+    <div class="card">
+        <div class="card-header">
+            <i class="bi bi-credit-card-fill"></i>
+            <h3>Debit / Credit Card</h3>
+        </div>
+        <p>Visa, MasterCard, RuPay, American Express accepted.</p>
+        <a href="#" class="btn btn-dark">Pay with Card</a>
+    </div>
+
+    <!-- NET BANKING -->
+    <div class="card">
+        <div class="card-header">
+            <i class="bi bi-bank2"></i>
+            <h3>Net Banking</h3>
+        </div>
+        <p>Pay securely through your bank account.</p>
+        <a href="#" class="btn btn-primary">Net Banking</a>
+    </div>
+
+    <!-- COD -->
+    <div class="card">
+        <div class="card-header">
+            <i class="bi bi-cash-coin"></i>
+            <h3>Cash on Delivery</h3>
+        </div>
+        <p>Pay when your order is delivered to your doorstep.</p>
+        <a href="#" class="btn btn-success">Place Order (COD)</a>
+    </div>
+
+    <!-- SECURE -->
+    <div class="secure">
+        <i class="bi bi-shield-lock-fill"></i>
+        Secure Payments • 100% Safe • PCI-DSS Compliant
+    </div>
+
+</div>
+
+</body>
+</html>

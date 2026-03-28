@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Checkout Details</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+  margin:0;
+  font-family:'Segoe UI',sans-serif;
+  background:#f3f6f9;
+}
+.container{
+  max-width:520px;
+  margin:60px auto;
+  background:#fff;
+  padding:35px;
+  border-radius:22px;
+  box-shadow:0 20px 45px rgba(0,0,0,0.15);
+}
+h2{
+  margin-bottom:25px;
+  color:#0f172a;
+}
+label{
+  font-weight:600;
+  font-size:14px;
+  margin-top:15px;
+  display:block;
+}
+input, textarea{
+  width:100%;
+  padding:12px;
+  margin-top:6px;
+  border-radius:12px;
+  border:1px solid #cbd5e1;
+  font-size:15px;
+}
+button{
+  margin-top:28px;
+  width:100%;
+  padding:14px;
+  border:none;
+  border-radius:16px;
+  background:#0f172a;
+  color:#fff;
+  font-size:16px;
+  font-weight:600;
+  cursor:pointer;
+}
+button:hover{
+  background:#020617;
+}
+.note{
+  margin-top:18px;
+  font-size:13px;
+  color:#92400e;
+  background:#fef3c7;
+  padding:12px;
+  border-radius:12px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <h2>📦 Delivery Details</h2>
+
+<form method="post" action="{% url 'checkout_details' %}">
+  {% csrf_token %}
+
+  <label>Name</label>
+  <input type="text" name="delivery_name"
+         value="{{ request.session.display_name }}" readonly>
+
+  <label>Mobile Number</label>
+  <input type="text" name="delivery_phone"
+         value="{{ customer.phone }}" readonly>
+
+  <label>Delivery Address</label>
+  <textarea name="delivery_address" rows="3" required>
+{{ request.session.delivery_address|default:customer.address }}
+  </textarea>
+
+  <label>City</label>
+  <input type="text" name="delivery_city"
+         value="{{ request.session.delivery_city|default:customer.city }}" required>
+
+  <label>Pincode</label>
+  <input type="text" name="delivery_pincode"
+         value="{{ request.session.delivery_pincode|default:customer.pincode }}" required>
+
+  <button type="submit">Continue to Checkout</button>
+</form>
+
+
+  <div class="note">
+    ⚠️ These details are used only for this order.<br>
+    Your profile information will not be changed.
+  </div>
+</div>
+
+</body>
+</html>

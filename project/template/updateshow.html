@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Order Success</title>
+
+<style>
+  .success-box{
+    width:420px;
+    margin:120px auto;
+    background:#ffffff;
+    padding:35px 30px;
+    border-radius:26px;
+    box-shadow:0 25px 55px rgba(0,0,0,0.18);
+    text-align:center;
+    animation:pop 0.6s ease;
+  }
+
+  @keyframes pop{
+    from{
+      transform:scale(0.9);
+      opacity:0;
+    }
+    to{
+      transform:scale(1);
+      opacity:1;
+    }
+  }
+
+  .success-icon{
+    font-size:60px;
+    margin-bottom:15px;
+  }
+
+  .success-box h2{
+    font-weight:800;
+    color:#0f172a;
+    margin-bottom:10px;
+  }
+
+  .success-box p{
+    font-size:15px;
+    color:#475569;
+    margin-bottom:25px;
+  }
+
+  .success-box a{
+    display:inline-block;
+    padding:12px 28px;
+    border-radius:16px;
+    background:#0f172a;
+    color:#ffffff;
+    text-decoration:none;
+    font-weight:600;
+    transition:0.3s;
+  }
+
+  .success-box a:hover{
+    background:#020617;
+    transform:translateY(-2px);
+    box-shadow:0 10px 25px rgba(0,0,0,0.25);
+  }
+</style>
+
+</head>
+<body>
+
+<div class="success-box">
+  <div class="success-icon">🎉</div>
+
+  <h2>Details Updated Successfully!</h2>
+  <p>
+    Thank you for Choose💙<br>
+    Your order will be delivered soon.
+  </p>
+
+  <div class="link-btn">
+  <a href="/cart/">Go to Cart</a>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,267 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>My Cart</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+body{
+  background:#f1f5f9;
+  font-family:'Segoe UI', sans-serif;
+}
+
+h3{
+  font-weight:700;
+  color:#0f172a;
+}
+
+/* 🔥 MARQUEE */
+.top-marquee{
+  background:linear-gradient(90deg,#020617,#0f172a,#020617);
+  color:#ffffff;
+  padding:10px 0;
+  font-weight:700;
+  font-size:14px;
+  box-shadow:0 6px 18px rgba(0,0,0,0.2);
+}
+
+/* CART CARD */
+.cart-card{
+  background:#ffffff;
+  border-radius:18px;
+  box-shadow:0 12px 30px rgba(0,0,0,0.12);
+  padding:22px;
+  margin-bottom:22px;
+  cursor:pointer;
+}
+
+.cart-card.active{
+  outline:3px solid #22c55e;
+}
+
+/* IMAGE */
+.product-img{
+  height:160px;
+  object-fit:contain;
+  background:#f8fafc;
+  padding:12px;
+  border-radius:14px;
+}
+
+/* TEXT */
+.product-name{
+  font-size:18px;
+  font-weight:700;
+}
+
+.product-details{
+  font-size:13px;
+  color:#475569;
+  line-height:1.6;
+}
+
+/* STATUS */
+.status{
+  font-size:13px;
+  margin-top:6px;
+}
+
+.status span{
+  margin-right:12px;
+}
+
+/* QTY */
+.qty-box{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-top:10px;
+}
+
+.qty-btn{
+  width:32px;
+  height:32px;
+  border-radius:6px;
+  border:1px solid #cbd5e1;
+  background:#ffffff;
+  font-size:18px;
+  font-weight:600;
+}
+
+.qty-btn:hover{ background:#f1f5f9; }
+
+.qty-value{
+  min-width:28px;
+  text-align:center;
+  font-weight:700;
+}
+
+/* REMOVE */
+.remove-btn{
+  border-radius:14px;
+  padding:6px 18px;
+  font-size:14px;
+}
+
+/* SUMMARY */
+.summary-card{
+  background:#ffffff;
+  border-radius:20px;
+  box-shadow:0 12px 30px rgba(0,0,0,0.15);
+  padding:26px;
+  position:sticky;
+  top:100px;
+}
+
+.summary-row{
+  display:flex;
+  justify-content:space-between;
+  font-size:14px;
+  margin-bottom:8px;
+}
+
+.summary-product{
+  border-bottom:1px dashed #e5e7eb;
+  padding-bottom:6px;
+  margin-bottom:6px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🔥 MARQUEE -->
+<div class="top-marquee text-center">
+  <marquee scrollamount="5">
+    🛒 Cart Saved • 🚚 Free Delivery • 🔒 Secure Payments • 💳 Cash on Delivery
+  </marquee>
+</div>
+
+<div class="container mt-4">
+<h3 class="mb-4">🛒 My Cart</h3>
+
+{% if items %}
+<div class="row">
+
+<!-- CART -->
+<div class="col-md-8">
+
+{% for i in items %}
+<div class="cart-card"
+     data-id="{{ i.product.id }}"
+     data-price="{{ i.product.price }}">
+
+<div class="row align-items-center">
+
+<!-- IMAGE -->
+<div class="col-md-3 text-center">
+  <img src="{% static i.product.image %}"
+       class="img-fluid product-img"
+       alt="{{ i.product.name }}">
+</div>
+
+<!-- DETAILS -->
+<div class="col-md-9">
+
+<div class="product-name">{{ i.product.name }}</div>
+
+<!-- 🔥 ONLY LOGIC CHANGED – STYLE SAME -->
+<div class="product-details mt-1">
+
+  {% if "mAh" in i.product.battery %}
+    Brand: {{ i.product.brand }}<br>
+    Processor: {{ i.product.processor }}<br>
+    RAM: {{ i.product.ram }} · Storage: {{ i.product.storage }}
+  {% else %}
+    Brand: {{ i.product.brand }}<br>
+    Category: {{ i.product.processor }}<br>
+    Type: {{ i.product.ram }} · Size / Pack: {{ i.product.storage }}
+  {% endif %}
+
+</div>
+
+<div class="status">
+  <span class="text-success">✔ In Stock</span>
+  <span class="text-primary">🚚 Delivery Within 5 Days</span>
+  <span class="text-warning">⭐ 4.5 Rating</span>
+</div>
+
+<h5 class="fw-bold mt-2">
+₹<span class="item-subtotal">{{ i.subtotal }}</span>.00
+</h5>
+
+<div class="qty-box">
+<button class="qty-btn minus" data-url="{% url 'decrease_qty' i.id %}">−</button>
+<span class="qty-value">{{ i.quantity }}</span>
+<button class="qty-btn plus" data-url="{% url 'increase_qty' i.id %}">+</button>
+</div>
+
+<div class="mt-2">
+<button class="btn btn-outline-danger remove-btn"
+        data-url="{% url 'remove_from_cart' i.product.id %}">
+Remove
+</button>
+</div>
+
+</div>
+</div>
+</div>
+{% endfor %}
+</div>
+
+<!-- SUMMARY -->
+<div class="col-md-4">
+<div class="summary-card">
+
+<h5 class="fw-bold mb-3">Order Summary</h5>
+<div id="summary-items"></div>
+
+<hr>
+
+<div class="summary-row fw-bold fs-5">
+<span>Total</span>
+<span>₹<span id="summary-total">0</span>.00</span>
+</div>
+
+<a href="{% url 'checkout' %}"
+   id="checkoutBtn"
+   class="btn btn-success w-100 mt-3 disabled">
+Proceed to Checkout
+</a>
+
+</div>
+</div>
+
+</div>
+
+{% else %}
+<div class="text-center mt-5">
+  <h4 class="fw-bold mb-2">Your cart is empty</h4>
+</div>
+{% endif %}
+</div>
+
+<script>
+const summary = {};
+const summaryBox = document.getElementById("summary-items");
+const summaryTotal = document.getElementById("summary-total");
+const checkoutBtn = document.getElementById("checkoutBtn");
+
+document.querySelectorAll(".qty-btn").forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    fetch(btn.dataset.url).then(()=> location.reload());
+  });
+});
+
+document.querySelectorAll(".remove-btn").forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    fetch(btn.dataset.url).then(()=> location.reload());
+  });
+});
+</script>
+
+</body>
+</html>

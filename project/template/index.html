@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>User Login</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+*{
+  box-sizing:border-box;
+}
+
+body{
+  height:100vh;
+  margin:0;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:linear-gradient(135deg,#6366f1,#8b5cf6);
+  font-family:'Segoe UI',sans-serif;
+}
+
+/* 🔹 CARD */
+.login-card{
+  background:#ffffff;
+  width:360px;
+  padding:32px 28px;
+  border-radius:22px;
+  box-shadow:0 30px 60px rgba(0,0,0,0.25);
+}
+
+/* 🔹 TITLE */
+.login-card h3{
+  text-align:center;
+  font-weight:700;
+  margin-bottom:25px;
+  color:#0f172a;
+}
+
+/* 🔹 INPUT GROUP */
+.input-group{
+  margin-bottom:16px;
+}
+
+.input-group label{
+  display:block;
+  font-size:13px;
+  font-weight:600;
+  color:#475569;
+  margin-bottom:6px;
+}
+
+.input-group input,
+.input-group select{
+  width:100%;
+  padding:12px 14px;
+  border-radius:14px;
+  border:1px solid #cbd5e1;
+  font-size:14px;
+  outline:none;
+  transition:0.3s;
+}
+
+.input-group input:focus,
+.input-group select:focus{
+  border-color:#6366f1;
+  box-shadow:0 0 0 3px rgba(99,102,241,0.2);
+}
+
+/* 🔹 CAPTCHA */
+.captcha-box{
+  background:#eef2ff;
+  text-align:center;
+  font-size:22px;
+  letter-spacing:5px;
+  font-weight:700;
+  padding:14px;
+  border-radius:14px;
+  margin-bottom:12px;
+  color:#3730a3;
+}
+
+/* 🔹 ERROR */
+.error{
+  background:#fee2e2;
+  color:#991b1b;
+  padding:10px;
+  border-radius:12px;
+  text-align:center;
+  font-size:14px;
+  margin-bottom:15px;
+}
+
+/* 🔹 BUTTON */
+button{
+  width:100%;
+  padding:14px;
+  border:none;
+  border-radius:16px;
+  background:#0f172a;
+  color:#ffffff;
+  font-size:15px;
+  font-weight:600;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+button:hover{
+  background:#020617;
+  transform:translateY(-2px);
+}
+</style>
+</head>
+
+<body>
+
+<form method="post" class="login-card">
+{% csrf_token %}
+
+<h3>User Login</h3>
+
+{% if error %}
+<div class="error">{{ error }}</div>
+{% endif %}
+
+<div class="input-group">
+  <label>Name</label>
+  <input name="name" placeholder="Enter your name" value="{{ name|default:'' }}">
+</div>
+
+<div class="input-group">
+  <label>Age</label>
+  <input type="number" name="age" placeholder="Enter your age" value="{{ age|default:'' }}">
+</div>
+
+<div class="input-group">
+  <label>Gender</label>
+  <select name="gender">
+    <option value="">Select Gender</option>
+    <option value="Male" {% if gender == "Male" %}selected{% endif %}>Male</option>
+    <option value="Female" {% if gender == "Female" %}selected{% endif %}>Female</option>
+  </select>
+</div>
+
+<div class="captcha-box">{{ captcha }}</div>
+
+<div class="input-group">
+  <label>Enter Captcha</label>
+  <input name="captcha" placeholder="Type the captcha above">
+</div>
+
+<input type="hidden" name="real_captcha" value="{{ captcha }}">
+
+<button type="submit">Continue</button>
+
+</form>
+
+</body>
+</html>

@@ -1,0 +1,303 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">  
+<head>
+<meta charset="UTF-8">
+<link rel="shortcut icon" type="image/x-icon" href="{% static 'images/favicon_v2.ico' %}">
+
+<title>Products</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- ✅ FONT AWESOME (100% WORKING ICONS) -->
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer" />
+
+<style>
+body{
+  background:#f1f5f9;
+  font-family:'Segoe UI', sans-serif;
+}
+
+/* LEFT NAVBAR */
+.sidebar{
+  position:fixed;
+  top:0;
+  left:0;
+  width:230px;
+  height:100vh;
+  background:#ffffff;
+  padding:30px 15px;
+  box-shadow:8px 0 25px rgba(0,0,0,0.08);
+  display:flex;
+  flex-direction:column;
+  gap:15px;
+  z-index:1000;
+}
+
+.sidebar h4{
+  text-align:center;
+  font-weight:700;
+  margin-bottom:25px;
+  color:#0f172a;
+}
+
+.sidebar a{
+  text-decoration:none;
+  color:#0f172a;
+  font-weight:600;
+  padding:12px 18px;
+  border-radius:14px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  transition:0.3s;
+}
+
+.sidebar a:hover{
+  background:#0f172a;
+  color:#ffffff;
+}
+
+/* PROFILE DROPDOWN */
+.profile-box{
+  position:relative;
+}
+
+.profile-trigger{
+  cursor:pointer;
+}
+
+.profile-dropdown{
+  display:flex;
+  opacity:0;
+  transform:translateY(-8px);
+  pointer-events:none;
+  transition:0.25s ease;
+  flex-direction:column;
+  background:#ffffff;
+  border-radius:14px;
+  box-shadow:0 20px 45px rgba(0,0,0,0.12);
+  margin-top:8px;
+  overflow:hidden;
+}
+
+.profile-dropdown a{
+  padding:12px 16px;
+  font-size:14px;
+}
+
+.profile-dropdown a:hover{
+  background:#0f172a;
+  color:#ffffff;
+}
+
+.profile-box:hover .profile-dropdown{
+  opacity:1;
+  transform:translateY(0);
+  pointer-events:auto;
+}
+
+/* CONTENT */
+.content{
+  margin-left:250px;
+  padding:40px 30px;
+}
+
+/* MARQUEE */
+.welcome-marquee{
+  background:linear-gradient(90deg,#020617,#0f172a,#020617);
+  color:#ffffff;
+  padding:12px 0;
+  border-radius:16px;
+  margin-bottom:30px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.2);
+}
+
+.welcome-marquee marquee{
+  font-weight:700;
+  font-size:16px;
+}
+
+/* PRODUCT CARD */
+.card{
+  border:none;
+  border-radius:26px;
+  box-shadow:0 20px 45px rgba(0,0,0,0.12);
+  transition:0.35s ease;
+  overflow:hidden;
+}
+
+.card:hover{
+  transform:translateY(-8px);
+}
+
+.card img{
+  height:220px;
+  object-fit:contain;
+  padding:18px;
+  background:linear-gradient(135deg,#f8fafc,#eef2ff);
+}
+
+.card-body{
+  padding:22px;
+  text-align:center;
+}
+
+.mrp{
+  text-decoration:line-through;
+  color:#94a3b8;
+  font-size:14px;
+}
+
+.qty-box input{
+  width:60px;
+  text-align:center;
+  border-radius:12px;
+  border:1px solid #cbd5e1;
+  padding:6px;
+  font-weight:600;
+}
+
+.btn-cart{
+  background:#facc15;
+  font-weight:700;
+  border-radius:14px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+<h4><i class="fa-solid fa-store"></i> Shop</h4>
+
+<a href="{% url 'products' %}">
+  <i class="fa-solid fa-mobile-screen"></i> Products
+</a>
+
+<a href="{% url 'cart' %}">
+  <i class="fa-solid fa-cart-shopping"></i> Cart
+  <span id="cart-badge" class="badge bg-danger ms-auto">{{ cart_count }}</span>
+</a>
+
+<a href="{% url 'orders' %}">
+  <i class="fa-solid fa-box"></i> Orders
+</a>
+
+<a href="{% url 'rating' %}">
+  <i class="fa-solid fa-star"></i> Ratings
+</a>
+
+<!-- PROFILE -->
+<div class="profile-box">
+  <a class="profile-trigger">
+    <i class="fa-solid fa-user-circle"></i> {{ request.session.display_name }}
+    <i class="fa-solid fa-caret-down ms-auto"></i>
+  </a>
+
+  <div class="profile-dropdown">
+    <a href="{% url 'profile' %}">
+      <i class="fa-solid fa-user"></i> My Profile
+    </a>
+    <a href="{% url 'orders' %}">
+      <i class="fa-solid fa-box"></i> My Orders
+    </a>
+    <a href="{% url 'nav_address' %}">
+      <i class="fa-solid fa-location-dot"></i> Address
+    </a>
+    <a href="{% url 'logout' %}">
+      <i class="fa-solid fa-right-from-bracket"></i> Logout
+    </a>
+  </div>
+</div>
+</div>
+
+<!-- CONTENT -->
+<div class="content">
+
+<div class="welcome-marquee">
+<marquee scrollamount="6">
+👋 Welcome {{ request.session.display_name }} —
+Best Deals 💥 | Fast Delivery 🚚 | Happy Shopping 🛍️
+</marquee>
+</div>
+
+<div class="container">
+<div class="row g-4">
+
+{% for product in products %}
+<div class="col-md-4 col-sm-6">
+<div class="card h-100">
+
+<img src="{% static product.image %}" alt="{{ product.name }}">
+
+<div class="card-body">
+<h5 class="fw-bold">{{ product.name }}</h5>
+<span class="mrp">₹{{ product.mrp }}</span>
+<h5 class="fw-bold">₹{{ product.price }}</h5>
+
+<form method="post" action="{% url 'add_to_cart' product.id %}">
+{% csrf_token %}
+<div class="qty-box">
+<input type="number" name="quantity" value="1" readonly>
+</div>
+<button type="button" class="btn btn-cart w-100 mt-3">
+
+<i class="fa-solid fa-cart-plus"></i> Add to Cart
+</button>
+</form>
+
+<a href="{% url 'buy_now' product.id %}" class="btn btn-dark w-100 mt-2">
+<i class="fa-solid fa-bolt"></i> Buy Now
+</a>
+
+</div>
+</div>
+</div>
+{% endfor %}
+
+</div>
+</div>
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+  document.querySelectorAll(".btn-cart").forEach(button => {
+    button.addEventListener("click", function () {
+
+      const form = this.closest("form");
+      const url = form.action;
+      const formData = new FormData(form);
+
+      fetch(url, {
+        method: "POST",
+        headers: {
+          "X-CSRFToken": formData.get("csrfmiddlewaretoken"),
+          "X-Requested-With": "XMLHttpRequest"
+        },
+        body: formData
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.cart_count !== undefined) {
+          const badge = document.getElementById("cart-badge");
+          if (badge) {
+            badge.innerText = data.cart_count;   // ✅ CORRECT PLACE
+          }
+        }
+      })
+      .catch(err => console.error(err));
+
+    });
+  });
+
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Edit Name</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    background:#f1f5f9;
+    padding:60px 0;
+}
+
+.container{
+    width:90%;
+    max-width:600px;
+    margin:auto;
+    background:#fff;
+    border:1.5px solid #cbd5e1;
+    border-radius:16px;
+    padding:35px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.08);
+}
+
+h2{
+    font-size:24px;
+    margin-bottom:10px;
+}
+
+p{
+    color:#64748b;
+    font-size:14px;
+    margin-bottom:25px;
+}
+
+label{
+    font-size:14px;
+    font-weight:600;
+    display:block;
+    margin-bottom:6px;
+}
+
+input{
+    width:100%;
+    padding:12px;
+    border-radius:10px;
+    border:1.5px solid #cbd5e1;
+    font-size:14px;
+    margin-bottom:25px;
+}
+
+.buttons{
+    display:flex;
+    gap:15px;
+}
+
+.save{
+    background:#0f172a;
+    color:#fff;
+    border:none;
+    padding:10px 22px;
+    border-radius:22px;
+    cursor:pointer;
+}
+
+.cancel{
+    background:#f8fafc;
+    border:1.5px solid #94a3b8;
+    padding:10px 22px;
+    border-radius:22px;
+    cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h2>Edit your name</h2>
+    <p>Update the name associated with your account.</p>
+
+    <form method="post">
+    {% csrf_token %}
+    <label>Your name</label>
+    <input type="text" name="name" value="{{ customer.name }}" required>
+    <button type="submit" class="save">Save</button>
+</form>
+
+</div>
+
+</body>
+</html>

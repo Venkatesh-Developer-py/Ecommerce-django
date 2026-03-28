@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Edit Address</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+
+<style>
+body{
+    margin:0;
+    font-family:'Segoe UI',sans-serif;
+    background:#f3f6f9;
+}
+
+.container{
+    max-width:480px;
+    margin:60px auto;
+}
+
+.form-box{
+    background:#ffffff;
+    padding:32px 30px;
+    border-radius:22px;
+    box-shadow:0 20px 45px rgba(0,0,0,0.15);
+}
+
+h3{
+    text-align:center;
+    font-weight:700;
+    margin-bottom:25px;
+    color:#0f172a;
+}
+
+label{
+    font-weight:600;
+    margin-bottom:6px;
+    display:block;
+}
+
+input, textarea{
+    width:100%;
+    padding:12px 14px;
+    border-radius:14px;
+    border:1px solid #cbd5e1;
+    font-size:15px;
+    margin-bottom:18px;
+}
+
+textarea{
+    resize:none;
+    height:90px;
+}
+
+button{
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:16px;
+    background:#0f172a;
+    color:#ffffff;
+    font-size:16px;
+    font-weight:600;
+    cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+<form method="POST" class="form-box">
+{% csrf_token %}
+
+<h3>✏️ Change Delivery Details</h3>
+
+<label>Full Name</label>
+<input type="text"
+       name="display_name"
+       value="{{ request.session.display_name }}"
+       required>
+
+<label>Mobile Number</label>
+<input type="text" name="phone" value="{{ customer.phone }}" required>
+
+<label>House No, Street, Area</label>
+<textarea name="address">{{ customer.address }}</textarea>
+
+<label>City</label>
+<input type="text" name="city" value="{{ customer.city }}" required>
+
+<label>Pincode</label>
+<input type="text" name="pincode" value="{{ customer.pincode }}" required>
+
+<button type="submit">
+    Save & Continue
+</button>
+
+</form>
+</div>
+<script>
+  window.addEventListener("pageshow", function (event) {
+    if (event.persisted) {
+      window.location.reload();
+    }
+  });
+</script>
+
+
+</body>
+</html>

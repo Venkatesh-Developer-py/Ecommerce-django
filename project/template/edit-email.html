@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Edit Email</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    background:#f1f5f9;
+    padding:60px 0;
+}
+.container{
+    width:90%;
+    max-width:600px;
+    margin:auto;
+    background:#fff;
+    border:1.5px solid #cbd5e1;
+    border-radius:16px;
+    padding:35px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.08);
+}
+label{
+    font-weight:600;
+}
+input{
+    width:100%;
+    padding:12px;
+    border-radius:10px;
+    border:1.5px solid #cbd5e1;
+    margin:20px 0;
+}
+button{
+    background:#0f172a;
+    color:#fff;
+    padding:10px 22px;
+    border:none;
+    border-radius:22px;
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+    <h2>Edit your email address</h2>
+    <p>We'll use this email to help keep your account secure.</p>
+
+    <form method="post">
+        {% csrf_token %}
+        <label>Email address</label>
+        <input type="email" name="email" value="{{ customer.email }}" required>
+        <button type="submit">Save</button>
+    </form>
+</div>
+</body>
+</html>

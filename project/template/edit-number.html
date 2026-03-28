@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Edit Mobile Number</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    background:#f1f5f9;
+    padding:60px 0;
+}
+
+.container{
+    width:90%;
+    max-width:600px;
+    margin:auto;
+    background:#ffffff;
+    border:1.5px solid #cbd5e1;
+    border-radius:16px;
+    padding:35px;
+    box-shadow:0 10px 25px rgba(15,23,42,0.08);
+}
+
+h2{
+    font-size:24px;
+    margin-bottom:8px;
+    color:#0f172a;
+}
+
+p{
+    font-size:14px;
+    color:#64748b;
+    margin-bottom:25px;
+}
+
+label{
+    font-size:14px;
+    font-weight:600;
+    display:block;
+    margin-bottom:6px;
+    color:#0f172a;
+}
+
+.input-group{
+    display:flex;
+    gap:10px;
+    margin-bottom:25px;
+}
+
+.country{
+    width:80px;
+    padding:12px;
+    border-radius:10px;
+    border:1.5px solid #cbd5e1;
+    background:#f8fafc;
+    font-size:14px;
+}
+
+input{
+    flex:1;
+    padding:12px;
+    border-radius:10px;
+    border:1.5px solid #cbd5e1;
+    font-size:14px;
+}
+
+.buttons{
+    display:flex;
+    gap:15px;
+}
+
+.save{
+    background:#0f172a;
+    color:#ffffff;
+    border:none;
+    padding:10px 26px;
+    border-radius:22px;
+    cursor:pointer;
+    font-size:14px;
+}
+
+.cancel{
+    background:#f8fafc;
+    border:1.5px solid #94a3b8;
+    padding:10px 26px;
+    border-radius:22px;
+    cursor:pointer;
+    font-size:14px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h2>Edit your mobile number</h2>
+    <p>This number will be used for account security and order updates.</p>
+
+    <form method="post">
+        {% csrf_token %}
+
+        <label>Mobile number</label>
+        <div class="input-group">
+            <input class="country" type="text" value="+91" readonly>
+            <input 
+                type="tel" 
+                name="phone"
+                value="{{ customer.phone }}"
+                placeholder="Enter mobile number"
+                pattern="[0-9]{10}"
+                required
+            >
+        </div>
+
+        <div class="buttons">
+            <button type="submit" class="save">Save</button>
+            <button type="button" class="cancel" onclick="history.back()">Cancel</button>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>

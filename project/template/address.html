@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Your Addresses</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+<style>
+body{
+    margin:0;
+    font-family:'Segoe UI',sans-serif;
+    background:#f4f6fb;
+    color:#0f172a;
+}
+
+/* PAGE */
+.container{
+    max-width:1200px;
+    margin:60px auto;
+    padding:10px 16px;
+}
+
+h2{
+    font-weight:800;
+    margin-bottom:35px;
+    font-size:26px;
+    color:#020617;
+}
+
+/* GRID */
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(360px,1fr));
+    gap:28px;
+}
+
+/* CARD */
+.card{
+    background:#ffffff;
+    border-radius:20px;
+    padding:28px;
+    box-shadow:0 15px 35px rgba(0,0,0,0.08);
+    transition:0.3s ease;
+}
+
+.card:hover{
+    transform:translateY(-6px);
+    box-shadow:0 28px 60px rgba(0,0,0,0.14);
+}
+
+/* HEADER */
+.card-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:18px;
+}
+
+.card-header h4{
+    margin:0;
+    font-size:19px;
+    font-weight:800;
+}
+
+/* BADGE */
+.badge{
+    background:#dcfce7;
+    color:#166534;
+    font-size:12px;
+    font-weight:700;
+    padding:5px 12px;
+    border-radius:20px;
+}
+
+/* CONTENT */
+.card p{
+    margin:12px 0;
+    font-size:14.5px;
+    color:#334155;
+    display:flex;
+    gap:12px;
+}
+
+.card p i{
+    font-size:17px;
+    color:#2563eb;
+}
+
+/* ACTIONS */
+.actions{
+    margin-top:26px;
+    display:flex;
+    gap:22px;
+}
+
+.actions a{
+    font-size:14px;
+    font-weight:700;
+    text-decoration:none;
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+.edit{ color:#2563eb; }
+.remove{ color:#dc2626; }
+
+/* ADD CARD */
+.add-card{
+    border:2px dashed #c7d2fe;
+    color:#2563eb;
+    text-align:center;
+    padding:28px;
+}
+
+.add-card i{
+    font-size:42px;
+}
+
+/* EMPTY STATE */
+.empty-box{
+    max-width:520px;
+    margin:100px auto;
+    text-align:center;
+    background:#ffffff;
+    padding:50px 30px;
+    border-radius:22px;
+    box-shadow:0 20px 40px rgba(0,0,0,0.12);
+}
+
+.empty-box h3{
+    font-weight:800;
+    margin-bottom:12px;
+}
+
+.empty-box hr{
+    margin:20px auto;
+    width:80px;
+    border:2px solid #e5e7eb;
+}
+
+.empty-box p{
+    color:#64748b;
+    margin-bottom:25px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+<h2>Your Addresses</h2>
+
+{% if customer.address %}
+
+<div class="grid">
+
+    <!-- ADD NEW -->
+    <a href="{% url 'edit_address' %}" style="text-decoration:none;">
+        <div class="card add-card">
+            <i class="bi bi-plus-circle"></i><br>
+            <strong>Add New Address</strong>
+            <div>Home · Office · Other</div>
+        </div>
+    </a>
+
+    <!-- ADDRESS CARD -->
+    <div class="card">
+        <div class="card-header">
+            <h4>{{ request.session.display_name }}</h4>
+            <span class="badge">Default</span>
+        </div>
+
+        <p><i class="bi bi-person-fill"></i>{{ request.session.display_name }}</p>
+        <p><i class="bi bi-telephone-fill"></i>Primary number saved</p>
+        <p><i class="bi bi-geo-alt-fill"></i>{{ customer.address }}</p>
+        <p><i class="bi bi-building"></i>{{ customer.city }} – {{ customer.pincode }}</p>
+
+        <div class="actions">
+            <a href="{% url 'edit_address' %}" class="edit">
+                <i class="bi bi-pencil"></i> Edit
+            </a>
+            <a href="{% url 'remove_address' %}" class="remove">
+                <i class="bi bi-trash"></i> Remove
+            </a>
+        </div>
+    </div>
+
+</div>
+
+{% else %}
+
+<!-- EMPTY STATE -->
+<div class="empty-box">
+    <h3>{{ request.session.display_name }}</h3>
+    <hr>
+    <p>No address found. Please add a delivery address to continue.</p>
+
+    <a href="{% url 'edit_address' %}" class="edit">
+        <i class="bi bi-plus-circle"></i> Add Address
+    </a>
+</div>
+
+{% endif %}
+
+</div>
+<script>
+  window.addEventListener("pageshow", function (event) {
+    if (event.persisted) {
+      window.location.reload();
+    }
+  });
+</script>
+
+
+</body>
+</html>
