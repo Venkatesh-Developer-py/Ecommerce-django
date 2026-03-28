@@ -1,17 +1,17 @@
 import os
 from pathlib import Path
+import pymysql
+
+pymysql.install_as_MySQLdb()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# SECURITY
+SECRET_KEY = 'your-secret-key'
+DEBUG = True
+ALLOWED_HOSTS = []
 
-
-SECRET_KEY = os.environ.get("SECRET_KEY", "fallback-secret-key")
-DEBUG = False
-ALLOWED_HOSTS = [".onrender.com"]
-
-CSRF_TRUSTED_ORIGINS = ["https://*.onrender.com"]
-
-
+# APPLICATIONS
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -22,11 +22,9 @@ INSTALLED_APPS = [
     'apple',
 ]
 
-
+# MIDDLEWARE
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
-
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -37,10 +35,11 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'project.urls'
 
+# TEMPLATES
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'template'],   # ⚠️ your folder name
+        'DIRS': [BASE_DIR / 'template'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -52,17 +51,21 @@ TEMPLATES = [
     },
 ]
 
-
 WSGI_APPLICATION = 'project.wsgi.application'
 
+# ✅ MYSQL DATABASE
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'ecommerce_clean',   # your DB name
+        'USER': 'root',              # your mysql user
+        'PASSWORD': 'root', # your mysql password
+        'HOST': 'localhost',
+        'PORT': '3306',
     }
 }
 
-
+# PASSWORD VALIDATION
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
     {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
@@ -70,12 +73,13 @@ AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
 
-
+# LANGUAGE
 LANGUAGE_CODE = 'en-us'
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Kolkata'
 USE_I18N = True
 USE_TZ = True
 
+# STATIC
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
@@ -84,12 +88,8 @@ STATICFILES_DIRS = [
 
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
-
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
-RAZORPAY_KEY_ID = os.environ.get("RAZORPAY_KEY_ID")
-RAZORPAY_KEY_SECRET = os.environ.get("RAZORPAY_KEY_SECRET")
-
+# RAZORPAY (LOCAL TEST)
+RAZORPAY_KEY_ID = "rzp_test_xxx"
+RAZORPAY_KEY_SECRET = "z2Vv5WfunPfGTGctVW6em3R2"
