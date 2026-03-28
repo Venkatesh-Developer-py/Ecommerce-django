@@ -94,10 +94,16 @@ RAZORPAY_KEY_ID = os.environ.get("RAZORPAY_KEY_ID")
 RAZORPAY_KEY_SECRET = os.environ.get("RAZORPAY_KEY_SECRET")
 
 import os
-from django.contrib.auth import get_user_model
+import django
 
-User = get_user_model()
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'project.settings')
+django.setup()
+
+from django.contrib.auth.models import User
 
 if os.environ.get("CREATE_SUPERUSER") == "True":
     if not User.objects.filter(username="admin").exists():
         User.objects.create_superuser("admin", "admin@gmail.com", "admin123")
+        print("Superuser created")
+    else:
+        print("Superuser already exists")
