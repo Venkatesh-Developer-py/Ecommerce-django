@@ -1,17 +1,17 @@
 import os
 from pathlib import Path
-import pymysql
-
-pymysql.install_as_MySQLdb()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# SECURITY
+
+
 SECRET_KEY = os.environ.get("SECRET_KEY", "fallback-secret-key")
 DEBUG = False
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = [".onrender.com"]
 
-# APPLICATIONS
+CSRF_TRUSTED_ORIGINS = ["https://*.onrender.com"]
+
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -22,7 +22,7 @@ INSTALLED_APPS = [
     'apple',
 ]
 
-# MIDDLEWARE
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
@@ -37,11 +37,10 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'project.urls'
 
-# TEMPLATES
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],  # ⚠️ make sure folder name = templates
+        'DIRS': [BASE_DIR / 'template'],   # ⚠️ your folder name
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -53,9 +52,9 @@ TEMPLATES = [
     },
 ]
 
+
 WSGI_APPLICATION = 'project.wsgi.application'
 
-# DATABASE (USE SQLITE FOR EASY DEPLOY)
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -63,7 +62,7 @@ DATABASES = {
     }
 }
 
-# PASSWORD VALIDATION
+
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
     {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
@@ -71,13 +70,12 @@ AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
 
-# LANGUAGE
+
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
-# STATIC FILES
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
@@ -86,9 +84,11 @@ STATICFILES_DIRS = [
 
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-# DEFAULT FIELD
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# RAZORPAY (ENV VARIABLES)
+
 RAZORPAY_KEY_ID = os.environ.get("RAZORPAY_KEY_ID")
 RAZORPAY_KEY_SECRET = os.environ.get("RAZORPAY_KEY_SECRET")
